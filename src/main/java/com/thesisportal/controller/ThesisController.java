@@ -176,15 +176,16 @@ public class ThesisController {
             String originalFileName = thesisFile.getOriginalFilename();
 
             if (originalFileName == null
-                    || !originalFileName.toLowerCase().endsWith(".pdf")) {
+                || !originalFileName.toLowerCase().endsWith(".pdf")
+                || !"application/pdf".equalsIgnoreCase(thesisFile.getContentType())) {
 
-                model.addAttribute(
-                        "error",
-                        "Only PDF files are allowed."
-                );
+            model.addAttribute(
+                    "error",
+                    "Only valid PDF files are allowed."
+            );
 
-                return "submit-thesis";
-            }
+            return "submit-thesis";
+}
 
             // 10 MB maximum
             long maxFileSize = 10 * 1024 * 1024;

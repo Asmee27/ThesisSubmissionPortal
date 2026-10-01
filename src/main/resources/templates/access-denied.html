@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied | ThesisFlow</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <a href="/" style="text-decoration: none; color: inherit;">ThesisFlow</a>
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+    </div>
+</nav>
+
+<main class="dashboard-page">
+    <div class="dashboard-container" style="max-width: 600px;">
+        <div class="empty-state">
+            <div class="empty-icon" style="background: #fef2f2; color: #dc2626;">
+                🚫
+            </div>
+            <h2>403 - Access Denied</h2>
+            <p>
+                You do not have permission to access this resource. Students cannot access reviewer pages and reviewers cannot access student pages.
+            </p>
+
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                <a href="/" class="secondary-btn">Go to Home</a>
+                <a href="/login" class="primary-btn">Switch Account</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <p>
+        ThesisFlow — Thesis Submission & Review Portal
+    </p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ThesisFlow | Thesis Submission Portal</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        <a href="/" style="text-decoration: none; color: inherit;">ThesisFlow</a>
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a sec:authorize="hasAuthority('ROLE_STUDENT')" href="/submit">Submit Thesis</a>
+        <a sec:authorize="hasAuthority('ROLE_STUDENT')" href="/student">Student Dashboard</a>
+        <a sec:authorize="hasAuthority('ROLE_REVIEWER')" href="/reviewer">Reviewer Dashboard</a>
+        
+        <div sec:authorize="isAuthenticated()" style="display: flex; align-items: center; gap: 15px;">
+            <span style="font-size: 14px; color: #667085;" sec:authentication="name">User</span>
+            <form th:action="@{/logout}" method="post" style="display: inline;">
+                <button type="submit" class="secondary-btn" style="padding: 8px 16px; font-size: 13px; cursor: pointer;">Logout</button>
+            </form>
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+            <a href="/login" class="primary-btn" style="padding: 8px 16px; font-size: 13px;">Login</a>
+        </div>
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<main class="hero">
+
+    <!-- LEFT SIDE -->
+
+    <div class="hero-content">
+
+        <span class="badge">
+            Academic Submission Platform
+        </span>
+
+        <h1>
+            Submit. Review.<br>
+            <span>Track Your Thesis.</span>
+        </h1>
+
+        <p>
+            ThesisFlow provides a centralized platform for students
+            and faculty to manage thesis submissions, revisions,
+            reviews and approvals efficiently.
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a href="/submit"
+               class="primary-btn">
+
+                Submit Thesis
+
+            </a>
+
+
+            <a href="/student"
+               class="secondary-btn">
+
+                Track Submission
+
+            </a>
+
+        </div>
+
+
+        <!-- FEATURES -->
+
+        <div class="quick-features">
+
+            <div class="quick-feature">
+                <strong>Secure</strong>
+                <span>Document submission</span>
+            </div>
+
+            <div class="quick-feature">
+                <strong>Trackable</strong>
+                <span>Real-time status</span>
+            </div>
+
+            <div class="quick-feature">
+                <strong>Organized</strong>
+                <span>Revision history</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="workflow-card">
+
+        <div class="workflow-header">
+
+            <div>
+                <span class="workflow-label">
+                    THESIS WORKFLOW
+                </span>
+
+                <h3>
+                    Submission Progress
+                </h3>
+            </div>
+
+        </div>
+
+
+        <!-- STEP 1 -->
+
+        <div class="workflow-item">
+
+            <div class="number">
+                1
+            </div>
+
+            <div>
+
+                <strong>
+                    Submit Thesis
+                </strong>
+
+                <p>
+                    Upload your thesis PDF and project information.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP 2 -->
+
+        <div class="workflow-item">
+
+            <div class="number">
+                2
+            </div>
+
+            <div>
+
+                <strong>
+                    Document Validation
+                </strong>
+
+                <p>
+                    Submission details and document are validated.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP 3 -->
+
+        <div class="workflow-item">
+
+            <div class="number">
+                3
+            </div>
+
+            <div>
+
+                <strong>
+                    Faculty Review
+                </strong>
+
+                <p>
+                    Reviewer evaluates the thesis and provides feedback.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP 4 -->
+
+        <div class="workflow-item">
+
+            <div class="number">
+                4
+            </div>
+
+            <div>
+
+                <strong>
+                    Decision & Status
+                </strong>
+
+                <p>
+                    Track approval, rejection or requested changes.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section class="how-it-works">
+
+    <div class="section-heading">
+
+        <span class="badge">
+            SIMPLE WORKFLOW
+        </span>
+
+        <h2>
+            Everything in one place
+        </h2>
+
+        <p>
+            No more scattered emails, multiple document copies
+            or unclear submission status.
+        </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                01
+            </div>
+
+            <h3>
+                Easy Submission
+            </h3>
+
+            <p>
+                Upload thesis documents along with student,
+                guide and project information.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                02
+            </div>
+
+            <h3>
+                Faculty Review
+            </h3>
+
+            <p>
+                Reviewers can examine submissions, provide comments
+                and make review decisions.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                03
+            </div>
+
+            <h3>
+                Version Tracking
+            </h3>
+
+            <p>
+                Revised submissions can be maintained without
+                losing previous thesis versions.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                04
+            </div>
+
+            <h3>
+                Status Tracking
+            </h3>
+
+            <p>
+                Students can easily track whether their thesis
+                is submitted, under review or approved.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="cta-section">
+
+    <div>
+
+        <h2>
+            Ready to submit your thesis?
+        </h2>
+
+        <p>
+            Start your submission and track the complete
+            review process from one dashboard.
+        </p>
+
+    </div>
+
+    <a href="/submit"
+       class="cta-button">
+
+        Start Submission →
+
+    </a>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        ThesisFlow
+    </div>
+
+    <p>
+        Thesis Submission & Review Portal
+    </p>
+
+    <p class="copyright">
+        © 2026 ThesisFlow
+    </p>
+
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Submission Successful | ThesisFlow</title>
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        <a href="/" style="text-decoration: none; color: inherit;">ThesisFlow</a>
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/submit">Submit Thesis</a>
+        <a href="/student">Student Dashboard</a>
+        <div sec:authorize="isAuthenticated()" style="display: flex; align-items: center; gap: 15px;">
+            <span style="font-size: 14px; color: #667085;" sec:authentication="name">Student</span>
+            <form th:action="@{/logout}" method="post" style="display: inline;">
+                <button type="submit" class="secondary-btn" style="padding: 8px 16px; font-size: 13px; cursor: pointer;">Logout</button>
+            </form>
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+            <a href="/login" class="primary-btn" style="padding: 8px 16px; font-size: 13px;">Login</a>
+        </div>
+    </div>
+
+</nav>
+
+
+<main class="form-page">
+
+    <div class="form-container success-container">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h1>Thesis Submitted!</h1>
+
+        <p class="success-description">
+            Your thesis has been successfully received.
+        </p>
+
+
+        <div class="submission-details">
+
+            <div class="detail-row">
+                <span>Student</span>
+
+                <strong th:text="${submission.studentName}">
+                    Student Name
+                </strong>
+            </div>
+
+
+            <div class="detail-row">
+                <span>Student ID</span>
+
+                <strong th:text="${submission.studentId}">
+                    Student ID
+                </strong>
+            </div>
+
+
+            <div class="detail-row">
+                <span>Thesis</span>
+
+                <strong th:text="${submission.title}">
+                    Thesis Title
+                </strong>
+            </div>
+
+
+            <div class="detail-row">
+                <span>Department</span>
+
+                <strong th:text="${submission.department}">
+                    Department
+                </strong>
+            </div>
+
+
+            <div class="detail-row">
+                <span>Status</span>
+
+                <strong class="status-badge"
+                        th:text="${submission.status}">
+                    SUBMITTED
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="success-actions">
+
+            <a href="/"
+               class="secondary-btn">
+                Home
+            </a>
+
+            <a href="/submit"
+               class="primary-btn">
+                New Submission
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

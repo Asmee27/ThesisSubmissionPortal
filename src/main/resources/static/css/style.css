@@ -1,0 +1,1753 @@
+/* =========================================================
+   THESISFLOW - MAIN STYLESHEET
+   ========================================================= */
+
+
+/* =========================
+   GLOBAL
+   ========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f6f8fc;
+    color: #172033;
+    line-height: 1.5;
+}
+
+a {
+    transition: 0.2s ease;
+}
+
+
+/* =========================
+   NAVBAR
+   ========================= */
+
+.navbar {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 8%;
+
+    background: white;
+    border-bottom: 1px solid #e7eaf0;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #3758e8;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #4b5565;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: #3758e8;
+}
+
+
+/* =========================
+   BADGE
+   ========================= */
+
+.badge {
+    display: inline-block;
+
+    background: #e9edff;
+    color: #3758e8;
+
+    padding: 8px 15px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   HERO
+   ========================= */
+
+.hero {
+    min-height: calc(100vh - 75px);
+
+    padding: 80px 9%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 80px;
+}
+
+.hero-content {
+    max-width: 620px;
+    flex: 1;
+}
+
+.hero h1 {
+    font-size: 58px;
+    line-height: 1.12;
+
+    letter-spacing: -1.5px;
+
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    color: #3758e8;
+}
+
+.hero-content > p {
+    max-width: 560px;
+
+    font-size: 18px;
+    line-height: 1.7;
+
+    color: #667085;
+}
+
+
+/* =========================
+   HERO BUTTONS
+   ========================= */
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+
+    margin-top: 35px;
+}
+
+.primary-btn,
+.secondary-btn {
+    display: inline-block;
+
+    padding: 14px 23px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.primary-btn {
+    background: #3758e8;
+    color: white;
+
+    border: 1px solid #3758e8;
+}
+
+.primary-btn:hover {
+    background: #2948cf;
+    transform: translateY(-1px);
+}
+
+.secondary-btn {
+    background: white;
+    color: #3758e8;
+
+    border: 1px solid #ccd3ef;
+}
+
+.secondary-btn:hover {
+    background: #f1f4ff;
+}
+
+
+/* =========================
+   QUICK FEATURES
+   ========================= */
+
+.quick-features {
+    display: flex;
+    gap: 35px;
+
+    margin-top: 45px;
+}
+
+.quick-feature {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.quick-feature strong {
+    color: #172033;
+    font-size: 14px;
+}
+
+.quick-feature span {
+    color: #7a8496;
+    font-size: 13px;
+}
+
+
+/* =========================
+   WORKFLOW CARD
+   ========================= */
+
+.workflow-card {
+    width: 410px;
+    flex-shrink: 0;
+
+    background: white;
+
+    padding: 32px;
+
+    border: 1px solid #edf0f5;
+    border-radius: 16px;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.07);
+}
+
+.workflow-header {
+    margin-bottom: 30px;
+}
+
+.workflow-label {
+    color: #3758e8;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.workflow-header h3 {
+    font-size: 21px;
+
+    margin-top: 6px;
+}
+
+.workflow-item {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 27px;
+}
+
+.workflow-item:last-child {
+    margin-bottom: 0;
+}
+
+.number {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #e9edff;
+    color: #3758e8;
+
+    border-radius: 50%;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.workflow-item strong {
+    font-size: 15px;
+}
+
+.workflow-item p {
+    margin-top: 4px;
+
+    color: #7a8496;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   HOW IT WORKS
+   ========================= */
+
+.how-it-works {
+    padding: 90px 9%;
+
+    background: white;
+}
+
+.section-heading {
+    max-width: 650px;
+
+    margin: auto;
+
+    text-align: center;
+}
+
+.section-heading .badge {
+    margin-bottom: 5px;
+}
+
+.section-heading h2 {
+    margin: 10px 0 15px;
+
+    font-size: 38px;
+
+    letter-spacing: -0.5px;
+}
+
+.section-heading p {
+    color: #667085;
+
+    line-height: 1.7;
+}
+
+
+/* =========================
+   FEATURE CARDS
+   ========================= */
+
+.feature-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 22px;
+
+    margin-top: 55px;
+}
+
+.feature-card {
+    padding: 30px;
+
+    background: white;
+
+    border: 1px solid #e7eaf0;
+    border-radius: 14px;
+
+    transition: 0.25s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.06);
+
+    border-color: #ccd3ef;
+}
+
+.feature-icon {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e9edff;
+    color: #3758e8;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.feature-card h3 {
+    margin: 18px 0 10px;
+
+    font-size: 18px;
+}
+
+.feature-card p {
+    color: #667085;
+
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+
+/* =========================
+   CTA SECTION
+   ========================= */
+
+.cta-section {
+    margin: 80px 9%;
+
+    padding: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    background: #172033;
+    color: white;
+
+    border-radius: 18px;
+}
+
+.cta-section h2 {
+    margin-bottom: 10px;
+
+    font-size: 30px;
+}
+
+.cta-section p {
+    color: #c6ccda;
+
+    line-height: 1.6;
+}
+
+.cta-button {
+    flex-shrink: 0;
+
+    padding: 14px 22px;
+
+    background: white;
+    color: #172033;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+.cta-button:hover {
+    background: #edf0f5;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   SUBMIT THESIS PAGE
+   ========================================================= */
+
+
+/* =========================
+   FORM PAGE
+   ========================= */
+
+.form-page {
+    min-height: calc(100vh - 75px);
+
+    padding: 60px 20px;
+
+    background: #f6f8fc;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 760px;
+
+    margin: auto;
+
+    padding: 45px;
+
+    background: white;
+
+    border: 1px solid #edf0f5;
+    border-radius: 16px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================
+   FORM HEADER
+   ========================= */
+
+.form-header {
+    margin-bottom: 35px;
+}
+
+.form-header .badge {
+    margin-bottom: 15px;
+}
+
+.form-header h1 {
+    margin-bottom: 10px;
+
+    font-size: 32px;
+
+    letter-spacing: -0.5px;
+}
+
+.form-header p {
+    color: #667085;
+
+    line-height: 1.6;
+}
+
+.form-link {
+    margin-top: 22px;
+    color: #667085;
+    text-align: center;
+    font-size: 14px;
+}
+
+.form-link a {
+    color: #3758e8;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.form-link a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   FORM ELEMENTS
+   ========================= */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #344054;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    background: white;
+    color: #172033;
+
+    border: 1px solid #d8dde7;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    transition: 0.2s ease;
+}
+
+.form-group textarea {
+    min-height: 130px;
+
+    resize: vertical;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #a0a8b5;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+
+    border-color: #3758e8;
+
+    box-shadow:
+        0 0 0 3px rgba(55, 88, 232, 0.10);
+}
+
+.form-group input[type="file"] {
+    padding: 11px;
+
+    cursor: pointer;
+}
+
+.form-group small {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #7a8496;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   SUBMIT BUTTON
+   ========================= */
+
+.submit-btn {
+    width: 100%;
+
+    margin-top: 5px;
+
+    padding: 14px 20px;
+
+    background: #3758e8;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.submit-btn:hover {
+    background: #2948cf;
+
+    transform: translateY(-1px);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    padding: 35px 9%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+
+    background: white;
+
+    border-top: 1px solid #e7eaf0;
+}
+
+.footer-logo {
+    color: #3758e8;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+footer p {
+    color: #7a8496;
+
+    font-size: 14px;
+}
+
+.copyright {
+    margin-left: auto;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+    .hero {
+        gap: 45px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .workflow-card {
+        width: 370px;
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 850px) {
+
+    .navbar {
+        padding: 0 6%;
+    }
+
+    .nav-links {
+        gap: 15px;
+    }
+
+    .hero {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 55px 7%;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .workflow-card {
+        width: 100%;
+    }
+
+    .cta-section {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .navbar {
+        height: auto;
+
+        padding: 20px 6%;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .nav-links {
+        width: 100%;
+
+        overflow-x: auto;
+
+        gap: 20px;
+    }
+
+    .nav-links a {
+        white-space: nowrap;
+
+        font-size: 13px;
+    }
+
+    .hero {
+        min-height: auto;
+
+        padding: 45px 6%;
+    }
+
+    .hero h1 {
+        font-size: 39px;
+    }
+
+    .hero-content > p {
+        font-size: 16px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        text-align: center;
+    }
+
+    .quick-features {
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+    .how-it-works {
+        padding: 65px 6%;
+    }
+
+    .section-heading h2 {
+        font-size: 31px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-section {
+        margin: 50px 6%;
+
+        padding: 35px 25px;
+    }
+
+    .cta-section h2 {
+        font-size: 25px;
+    }
+
+    .form-page {
+        padding: 35px 15px;
+    }
+
+    .form-container {
+        padding: 28px 20px;
+    }
+
+    .form-header h1 {
+        font-size: 27px;
+    }
+
+    footer {
+        padding: 30px 6%;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+    .copyright {
+        margin-left: 0;
+    }
+}
+    .error-message {
+    padding: 13px 15px;
+    margin-bottom: 22px;
+    background: #fff1f1;
+    color: #c62828;
+    border: 1px solid #ffcaca;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.success-container {
+    max-width: 650px;
+    text-align: center;
+}
+
+.success-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e9edff;
+    color: #3758e8;
+    border-radius: 50%;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.success-description {
+    margin-top: 8px;
+    color: #667085;
+}
+
+.submission-details {
+    margin: 35px 0;
+    text-align: left;
+    border: 1px solid #e7eaf0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.detail-row {
+    padding: 15px 18px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid #e7eaf0;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row span {
+    color: #667085;
+}
+
+.status-badge {
+    color: #3758e8;
+}
+
+.success-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* =====================================================
+   STUDENT DASHBOARD
+   ===================================================== */
+
+.dashboard-page {
+    min-height: calc(100vh - 140px);
+    background: #f7f8fc;
+    padding: 55px 24px;
+}
+
+.dashboard-container {
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+/* Header */
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    margin-top: 12px;
+    margin-bottom: 8px;
+    font-size: 34px;
+    color: #1d2939;
+}
+
+.dashboard-header p {
+    color: #667085;
+    font-size: 15px;
+}
+
+.dashboard-header .primary-btn {
+    white-space: nowrap;
+}
+
+
+/* Student Information Card */
+
+.student-info-card {
+    display: flex;
+    gap: 60px;
+    padding: 22px 25px;
+    margin-bottom: 30px;
+
+    background: white;
+    border: 1px solid #e7eaf0;
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.student-info-card > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.info-label {
+    font-size: 13px;
+    color: #667085;
+}
+
+.student-info-card strong {
+    color: #1d2939;
+    font-size: 16px;
+}
+
+
+/* Section Heading */
+
+.submission-section {
+    margin-top: 25px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+.section-heading h2 {
+    font-size: 21px;
+    color: #1d2939;
+}
+
+.section-heading span {
+    color: #667085;
+    font-size: 14px;
+}
+
+
+/* Submission List */
+
+.submission-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/* Submission Card */
+
+.submission-card {
+    background: white;
+
+    border: 1px solid #e7eaf0;
+    border-radius: 14px;
+
+    padding: 26px;
+
+    box-shadow: 0 4px 16px rgba(16, 24, 40, 0.04);
+
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.submission-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(16, 24, 40, 0.08);
+}
+
+
+/* Submission Header */
+
+.submission-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 20px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #edf0f5;
+}
+
+.submission-id {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #667085;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.submission-card-header h3 {
+    margin: 0;
+
+    color: #1d2939;
+
+    font-size: 20px;
+}
+
+
+/* Status Badge */
+
+.dashboard-status {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+}
+
+.status-submitted {
+    background: #eef2ff;
+    color: #3758e8;
+}
+
+.status-approved {
+    background: #eaf8ef;
+    color: #1d8a4e;
+}
+
+.status-rejected {
+    background: #fff0f0;
+    color: #d92d20;
+}
+
+.status-changes {
+    background: #fff6e5;
+    color: #b54708;
+}
+
+
+/* Submission Information Grid */
+
+.submission-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 25px;
+
+    padding: 23px 0;
+}
+
+.submission-detail {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.submission-detail span {
+    color: #667085;
+
+    font-size: 12px;
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+}
+
+.submission-detail strong {
+    color: #344054;
+
+    font-size: 14px;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* Abstract */
+
+.submission-abstract {
+    padding: 18px;
+
+    background: #f8f9fc;
+
+    border-radius: 9px;
+
+    margin-bottom: 25px;
+}
+
+.submission-abstract span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #667085;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+}
+
+.submission-abstract p {
+    margin: 0;
+
+    color: #475467;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   STATUS TIMELINE
+   ===================================================== */
+
+.status-timeline {
+    display: flex;
+
+    align-items: center;
+
+    padding-top: 5px;
+}
+
+.timeline-step {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 135px;
+}
+
+.timeline-dot {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #eaecf0;
+
+    color: #667085;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.timeline-step.completed .timeline-dot {
+    background: #3758e8;
+    color: white;
+}
+
+.timeline-step > div:last-child {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.timeline-step strong {
+    color: #344054;
+
+    font-size: 13px;
+}
+
+.timeline-step span {
+    color: #98a2b3;
+
+    font-size: 11px;
+}
+
+.timeline-line {
+    flex: 1;
+
+    height: 2px;
+
+    background: #e4e7ec;
+
+    margin: 0 15px;
+}
+
+
+/* =====================================================
+   EMPTY DASHBOARD
+   ===================================================== */
+
+.empty-state {
+    background: white;
+
+    border: 1px solid #e7eaf0;
+
+    border-radius: 14px;
+
+    padding: 65px 30px;
+
+    text-align: center;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.empty-icon {
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f0f3ff;
+
+    font-size: 27px;
+}
+
+.empty-state h2 {
+    margin-bottom: 8px;
+
+    color: #1d2939;
+
+    font-size: 21px;
+}
+
+.empty-state p {
+    margin-bottom: 25px;
+
+    color: #667085;
+
+    font-size: 14px;
+}
+
+
+/* Active Navbar Link */
+
+.nav-links a.active {
+    color: #3758e8;
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 900px) {
+
+    .submission-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .status-timeline {
+        align-items: flex-start;
+    }
+
+    .timeline-line {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .dashboard-page {
+        padding: 35px 16px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dashboard-header h1 {
+        font-size: 28px;
+    }
+
+    .student-info-card {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .submission-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .submission-card-header {
+        flex-direction: column;
+    }
+
+    .status-timeline {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .timeline-line {
+        width: 2px;
+        height: 25px;
+
+        flex: none;
+
+        margin: -5px 0 -5px 15px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 5px;
+    }
+}
+
+/* ================= LOGIN ================= */
+
+.login-success-message {
+    padding: 13px 15px;
+    margin-bottom: 22px;
+
+    background: #eff6ff;
+    color: #1e40af;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+
+    font-size: 14px;
+}
+
+.login-security-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 25px;
+    padding-top: 20px;
+
+    border-top: 1px solid #edf0f5;
+
+    color: #667085;
+    font-size: 13px;
+    text-align: center;
+}
+
+.login-security-note p {
+    margin: 0;
+}
+
+/* =====================================================
+   THESISFLOW LOGIN
+   ===================================================== */
+
+.login-container {
+    max-width: 520px;
+}
+
+.login-header {
+    text-align: center;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* ================= ROLE SELECTOR ================= */
+
+.role-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+
+    margin-top: 10px;
+}
+
+.role-option {
+    cursor: pointer;
+}
+
+.role-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.role-card {
+    min-height: 82px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px;
+
+    background: #ffffff;
+
+    border: 1.5px solid #d0d5dd;
+    border-radius: 10px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.role-option:hover .role-card {
+    border-color: #8098f9;
+
+    background: #fafbff;
+
+    transform: translateY(-1px);
+}
+
+.role-option input:checked + .role-card {
+    border-color: #3758e8;
+
+    background: #f0f3ff;
+
+    box-shadow:
+        0 0 0 3px rgba(55, 88, 232, 0.10);
+}
+
+
+/* Role Icon */
+
+.role-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f2f4f7;
+
+    border-radius: 9px;
+
+    font-size: 21px;
+}
+
+.role-option input:checked +
+.role-card .role-icon {
+
+    background: #dfe5ff;
+}
+
+
+/* Role Text */
+
+.role-content {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.role-content strong {
+    color: #1d2939;
+
+    font-size: 14px;
+}
+
+.role-content small {
+    color: #667085;
+
+    font-size: 11px;
+
+    line-height: 1.4;
+}
+
+.role-option input:checked +
+.role-card .role-content strong {
+
+    color: #3758e8;
+}
+
+
+/* ================= LOGIN BUTTON ================= */
+
+.login-button {
+    width: 100%;
+    margin-top: 5px;
+}
+
+
+/* ================= SUCCESS MESSAGE ================= */
+
+.login-success-message {
+    padding: 13px 15px;
+
+    margin-bottom: 22px;
+
+    background: #eff6ff;
+
+    color: #1e40af;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+}
+
+
+/* ================= SECURITY NOTE ================= */
+
+.login-security-note {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 28px;
+    padding-top: 20px;
+
+    border-top: 1px solid #edf0f5;
+
+    color: #667085;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+.login-security-note p {
+    margin: 0;
+
+    line-height: 1.5;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 550px) {
+
+    .role-selector {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* ================= REVIEW ACTIONS ================= */
+
+.review-action-section {
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid #edf0f5;
+}
+
+.review-action-header {
+    margin-bottom: 16px;
+}
+
+.review-action-header > span {
+    display: block;
+    margin-bottom: 4px;
+
+    color: #344054;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.review-action-header p {
+    margin: 0;
+
+    color: #667085;
+    font-size: 13px;
+}
+
+.review-form textarea {
+    width: 100%;
+    min-height: 100px;
+
+    padding: 12px 14px;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    resize: vertical;
+}
+
+.review-form textarea:focus {
+    outline: none;
+    border-color: #3758e8;
+
+    box-shadow:
+        0 0 0 3px rgba(55, 88, 232, 0.1);
+}
+
+.feedback-hint {
+    display: block;
+    margin-top: 6px;
+
+    color: #667085;
+    font-size: 12px;
+}
+
+.review-buttons {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+.review-btn {
+    padding: 9px 16px;
+
+    border: none;
+    border-radius: 7px;
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.review-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.approve-btn {
+    background: #16a34a;
+}
+
+.changes-btn {
+    background: #d97706;
+}
+
+.reject-btn {
+    background: #dc2626;
+}

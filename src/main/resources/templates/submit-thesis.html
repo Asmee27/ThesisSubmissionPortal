@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Thesis | ThesisFlow</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <a href="/" style="text-decoration: none; color: inherit;">ThesisFlow</a>
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/submit" class="active">Submit Thesis</a>
+        <a href="/student">Student Dashboard</a>
+        <div sec:authorize="isAuthenticated()" style="display: flex; align-items: center; gap: 15px;">
+            <span style="font-size: 14px; color: #667085;" sec:authentication="name">Student</span>
+            <form th:action="@{/logout}" method="post" style="display: inline;">
+                <button type="submit" class="secondary-btn" style="padding: 8px 16px; font-size: 13px; cursor: pointer;">Logout</button>
+            </form>
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+            <a href="/login" class="primary-btn" style="padding: 8px 16px; font-size: 13px;">Login</a>
+        </div>
+    </div>
+</nav>
+
+<main class="form-page">
+
+    <div class="form-container">
+
+        <div class="form-header">
+            <span class="badge">New Submission</span>
+            <h1>Submit Your Thesis</h1>
+            <p>Enter your thesis information and upload the final PDF document.</p>
+        </div>
+
+        <form th:action="@{/submit}"
+            method="post"
+            enctype="multipart/form-data">
+            <div class="error-message" th:if="${error}">
+                <span th:text="${error}"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Student Name</label>
+                <input type="text"
+                       name="studentName"
+                       th:value="${defaultStudentName}"
+                       placeholder="Enter your full name"
+                       required
+                       readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Student ID</label>
+                <input type="text"
+                       name="studentId"
+                       th:value="${defaultStudentId}"
+                       placeholder="e.g. 24102C2003"
+                       required
+                       readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Thesis Title</label>
+                <input type="text"
+                       name="title"
+                       placeholder="Enter thesis title"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Department</label>
+
+                <select name="department" required>
+                    <option value="">Select department</option>
+                    <option>Computer Engineering</option>
+                    <option>Information Technology</option>
+                    <option>Electronics Engineering</option>
+                    <option>Biomedical Engineering</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Guide Name</label>
+                <input type="text"
+                       name="guideName"
+                       placeholder="Enter faculty guide name"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Abstract</label>
+
+                <textarea
+                    name="abstractText"
+                    rows="6"
+                    placeholder="Enter a short thesis abstract"
+                    required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Thesis PDF</label>
+
+                <input type="file"
+                       name="thesisFile"
+                       accept=".pdf"
+                       required>
+
+                <small>Only PDF documents will be accepted.</small>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Submit Thesis
+            </button>
+
+        </form>
+
+    </div>
+
+</main>
+
+</body>
+</html>

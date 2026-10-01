@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | ThesisFlow</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        <a href="/" style="text-decoration: none; color: inherit;">ThesisFlow</a>
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/submit">Submit Thesis</a>
+        <a href="/student" class="active">Student Dashboard</a>
+        <div sec:authorize="isAuthenticated()" style="display: flex; align-items: center; gap: 15px;">
+            <span style="font-size: 14px; color: #667085;" sec:authentication="name">Student</span>
+            <form th:action="@{/logout}" method="post" style="display: inline;">
+                <button type="submit" class="secondary-btn" style="padding: 8px 16px; font-size: 13px; cursor: pointer;">Logout</button>
+            </form>
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+            <a href="/login" class="primary-btn" style="padding: 8px 16px; font-size: 13px;">Login</a>
+        </div>
+    </div>
+
+</nav>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<main class="dashboard-page">
+
+    <div class="dashboard-container">
+
+        <!-- Header -->
+
+        <div class="dashboard-header">
+
+            <div>
+                <span class="badge">STUDENT PORTAL</span>
+
+                <h1>My Thesis Submissions</h1>
+
+                <p>
+                    Track your thesis submission and review status.
+                </p>
+            </div>
+
+            <a href="/submit" class="primary-btn">
+                + New Submission
+            </a>
+
+        </div>
+
+
+        <!-- Student Info -->
+
+        <div class="student-info-card">
+
+            <div>
+                <span class="info-label">Student ID</span>
+
+                <strong th:text="${studentId}">
+                    24102C2003
+                </strong>
+            </div>
+
+            <div>
+                <span class="info-label">Total Submissions</span>
+
+                <strong th:text="${#lists.size(submissions)}">
+                    0
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- ================= EMPTY STATE ================= -->
+
+        <div class="empty-state"
+             th:if="${#lists.isEmpty(submissions)}">
+
+            <div class="empty-icon">
+                📄
+            </div>
+
+            <h2>No thesis submissions yet</h2>
+
+            <p>
+                Submit your thesis to start tracking its review status.
+            </p>
+
+            <a href="/submit" class="primary-btn">
+                Submit Thesis
+            </a>
+
+        </div>
+
+
+        <!-- ================= SUBMISSIONS ================= -->
+
+        <div class="submission-section"
+             th:unless="${#lists.isEmpty(submissions)}">
+
+            <div class="section-heading">
+
+                <h2>Submission History</h2>
+
+                <span th:text="${#lists.size(submissions) + ' submission(s)'}">
+                    1 submission
+                </span>
+
+            </div>
+
+
+            <div class="submission-list">
+
+                <div class="submission-card"
+                     th:each="submission : ${submissions}">
+
+                    <!-- Top -->
+
+                    <div class="submission-card-header">
+
+                        <div>
+
+                            <span class="submission-id"
+                                  th:text="'Submission #' + ${submission.id}">
+                                Submission #1
+                            </span>
+
+                            <h3 th:text="${submission.title}">
+                                Thesis Title
+                            </h3>
+
+                        </div>
+
+
+                        <span class="dashboard-status"
+                              th:classappend="${submission.status == 'APPROVED'} ? ' status-approved' :
+                                             (${submission.status == 'REJECTED'} ? ' status-rejected' :
+                                             (${submission.status == 'CHANGES_REQUESTED'} ? ' status-changes' :
+                                             ' status-submitted'))"
+                              th:text="${submission.status}">
+                            SUBMITTED
+                        </span>
+
+                    </div>
+
+
+                    <!-- Details -->
+
+                    <div class="submission-grid">
+
+                        <div class="submission-detail">
+
+                            <span>Department</span>
+
+                            <strong th:text="${submission.department}">
+                                Computer Engineering
+                            </strong>
+
+                        </div>
+
+
+                        <div class="submission-detail">
+
+                            <span>Guide</span>
+
+                            <strong th:text="${submission.guideName}">
+                                Faculty Guide
+                            </strong>
+
+                        </div>
+
+
+                        <div class="submission-detail">
+
+                            <span>Submitted</span>
+
+                            <strong th:text="${#temporals.format(
+                                    submission.submittedAt,
+                                    'dd MMM yyyy, hh:mm a')}">
+                                30 Sep 2026
+                            </strong>
+
+                        </div>
+
+
+                        <div class="submission-detail">
+
+                            <span>Document</span>
+
+                            <a th:href="@{/documents/{id}(id=${submission.id})}" target="_blank" rel="noopener">View/Open PDF</a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="submission-abstract"
+                         th:if="${submission.reviewerFeedback != null and !#strings.isEmpty(submission.reviewerFeedback)}">
+                        <span>Reviewer Feedback</span>
+                        <p th:text="${submission.reviewerFeedback}">Reviewer feedback will appear here.</p>
+                    </div>
+
+
+                    <!-- Abstract -->
+
+                    <div class="submission-abstract">
+
+                        <span>Abstract</span>
+
+                        <p th:text="${submission.abstractText}">
+                            Thesis abstract will appear here.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Status Timeline -->
+
+                    <div class="status-timeline">
+
+                        <div class="timeline-step completed">
+
+                            <div class="timeline-dot">✓</div>
+
+                            <div>
+                                <strong>Submitted</strong>
+                                <span>Thesis received</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-step"
+                             th:classappend="${submission.status != 'SUBMITTED'} ? ' completed'">
+
+                            <div class="timeline-dot">2</div>
+
+                            <div>
+                                <strong>Review</strong>
+                                <span>Faculty evaluation</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-step"
+                             th:classappend="${submission.status == 'APPROVED'
+                                             || submission.status == 'REJECTED'} ?
+                                             ' completed'">
+
+                            <div class="timeline-dot">3</div>
+
+                            <div>
+                                <strong>Decision</strong>
+                                <span>Final status</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <p>
+        ThesisFlow — Thesis Submission & Review Portal
+    </p>
+
+</footer>
+
+</body>
+
+</html>

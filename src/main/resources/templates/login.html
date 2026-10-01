@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | ThesisFlow</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        <a href="/" class="logo-link">
+            ThesisFlow
+        </a>
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/login" class="active">Login</a>
+    </div>
+
+</nav>
+
+
+<!-- ================= LOGIN PAGE ================= -->
+
+<main class="form-page">
+
+    <div class="form-container login-container">
+
+        <!-- Header -->
+
+        <div class="form-header login-header">
+
+            <span class="badge">
+                SECURE ACCESS
+            </span>
+
+            <h1>Welcome Back</h1>
+
+            <p>
+                Sign in to continue to your ThesisFlow workspace.
+            </p>
+
+        </div>
+
+
+        <!-- Login Error -->
+
+        <div class="error-message"
+             th:if="${error}">
+
+            <span th:text="${error}">
+                Invalid username or password.
+            </span>
+
+        </div>
+
+
+        <!-- Logout Success -->
+
+        <div class="login-success-message"
+             th:if="${message}">
+
+            <span th:text="${message}">
+                You have been logged out successfully.
+            </span>
+
+        </div>
+
+
+        <!-- ================= LOGIN FORM ================= -->
+
+        <form th:action="@{/login}" method="post">
+
+
+            <!-- ROLE SELECTION -->
+
+            <div class="form-group">
+
+                <label>
+                    Login As
+                </label>
+
+                <div class="role-selector">
+
+
+                    <!-- STUDENT -->
+
+                    <label class="role-option">
+
+                        <input type="radio"
+                               name="role"
+                               value="STUDENT"
+                               required>
+
+                        <span class="role-card">
+
+                            <span class="role-icon">
+                                🎓
+                            </span>
+
+                            <span class="role-content">
+
+                                <strong>
+                                    Student
+                                </strong>
+
+                                <small>
+                                    Submit & track thesis
+                                </small>
+
+                            </span>
+
+                        </span>
+
+                    </label>
+
+
+                    <!-- REVIEWER -->
+
+                    <label class="role-option">
+
+                        <input type="radio"
+                               name="role"
+                               value="REVIEWER"
+                               required>
+
+                        <span class="role-card">
+
+                            <span class="role-icon">
+                                👨‍🏫
+                            </span>
+
+                            <span class="role-content">
+
+                                <strong>
+                                    Reviewer
+                                </strong>
+
+                                <small>
+                                    Review submissions
+                                </small>
+
+                            </span>
+
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- USERNAME -->
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username / Student ID
+                </label>
+
+                <input type="text"
+                       id="username"
+                       name="username"
+                       placeholder="Enter username or student ID"
+                       autocomplete="username"
+                       required
+                       autofocus>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input type="password"
+                       id="password"
+                       name="password"
+                       placeholder="Enter your password"
+                       autocomplete="current-password"
+                       required>
+
+            </div>
+
+
+            <!-- SIGN IN -->
+
+            <button type="submit"
+                    class="submit-btn login-button">
+
+                Sign In
+
+            </button>
+
+        </form>
+
+        <p class="form-link">
+            Need an account? <a href="/signup">Create one</a>
+        </p>
+
+
+        <!-- Security Message -->
+
+        <div class="login-security-note">
+
+            <span>🔒</span>
+
+            <p>
+                Your access is determined by your authorized
+                ThesisFlow account role.
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <p>
+        ThesisFlow — Thesis Submission & Review Portal
+    </p>
+
+</footer>
+
+
+</body>
+</html>

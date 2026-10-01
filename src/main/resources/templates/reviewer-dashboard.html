@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reviewer Dashboard | ThesisFlow</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        <a href="/"
+           style="text-decoration: none; color: inherit;">
+            ThesisFlow
+        </a>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <a href="/reviewer"
+           class="active">
+            Reviewer Dashboard
+        </a>
+
+        <div sec:authorize="isAuthenticated()"
+             style="display: flex; align-items: center; gap: 15px;">
+
+            <span style="font-size: 14px; color: #667085;"
+                  sec:authentication="name">
+                Reviewer
+            </span>
+
+            <form th:action="@{/logout}"
+                  method="post"
+                  style="display: inline;">
+
+                <button type="submit"
+                        class="secondary-btn"
+                        style="padding: 8px 16px;
+                               font-size: 13px;
+                               cursor: pointer;">
+                    Logout
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<main class="dashboard-page">
+
+    <div class="dashboard-container">
+
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <span class="badge">
+                    FACULTY REVIEWER PORTAL
+                </span>
+
+                <h1>
+                    Thesis Review Dashboard
+                </h1>
+
+                <p>
+                    Examine submitted theses, review documents,
+                    provide feedback, and issue evaluation decisions.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= ERROR MESSAGE ================= -->
+
+        <div class="error-message"
+             th:if="${error != null}">
+
+            <span th:text="${error}">
+                Unable to process review action.
+            </span>
+
+        </div>
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <div class="student-info-card">
+
+            <div>
+
+                <span class="info-label">
+                    Total Submissions
+                </span>
+
+                <strong th:text="${#lists.size(submissions)}">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span class="info-label">
+                    Role
+                </span>
+
+                <strong>
+                    Faculty Reviewer
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= EMPTY STATE ================= -->
+
+        <div class="empty-state"
+             th:if="${#lists.isEmpty(submissions)}">
+
+            <div class="empty-icon">
+                📂
+            </div>
+
+            <h2>
+                No submissions available for review
+            </h2>
+
+            <p>
+                Student thesis submissions will appear here
+                once submitted.
+            </p>
+
+        </div>
+
+
+        <!-- ================= SUBMISSION SECTION ================= -->
+
+        <div class="submission-section"
+             th:unless="${#lists.isEmpty(submissions)}">
+
+
+            <div class="section-heading">
+
+                <h2>
+                    Submitted Theses
+                </h2>
+
+                <span th:text="${#lists.size(submissions)
+                                + ' total submission(s)'}">
+                    0 submissions
+                </span>
+
+            </div>
+
+
+            <div class="submission-list">
+
+
+                <!-- ================= SINGLE SUBMISSION ================= -->
+
+                <div class="submission-card"
+                     th:each="submission : ${submissions}">
+
+
+                    <!-- ================= CARD HEADER ================= -->
+
+                    <div class="submission-card-header">
+
+                        <div>
+
+                            <span class="submission-id"
+                                  th:text="'Submission #' + ${submission.id}">
+                                Submission #1
+                            </span>
+
+                            <h3 th:text="${submission.title}">
+                                Thesis Title
+                            </h3>
+
+                        </div>
+
+
+                        <!-- Status Badge -->
+
+                        <span class="dashboard-status"
+                              th:classappend="
+                              ${submission.status == 'APPROVED'}
+                              ? ' status-approved'
+                              :
+                              (${submission.status == 'REJECTED'}
+                              ? ' status-rejected'
+                              :
+                              (${submission.status == 'CHANGES_REQUESTED'}
+                              ? ' status-changes'
+                              : ' status-submitted'))"
+                              th:text="${submission.status}">
+
+                            SUBMITTED
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- ================= DETAILS ================= -->
+
+                    <div class="submission-grid">
+
+
+                        <div class="submission-detail">
+
+                            <span>
+                                Student Name
+                            </span>
+
+                            <strong th:text="${submission.studentName}">
+                                Student Name
+                            </strong>
+
+                        </div>
+
+
+                        <div class="submission-detail">
+
+                            <span>
+                                Student ID
+                            </span>
+
+                            <strong th:text="${submission.studentId}">
+                                Student ID
+                            </strong>
+
+                        </div>
+
+
+                        <div class="submission-detail">
+
+                            <span>
+                                Department
+                            </span>
+
+                            <strong th:text="${submission.department}">
+                                Department
+                            </strong>
+
+                        </div>
+
+
+                        <div class="submission-detail">
+
+                            <span>
+                                Faculty Guide
+                            </span>
+
+                            <strong th:text="${submission.guideName}">
+                                Guide Name
+                            </strong>
+
+                        </div>
+
+
+                        <div class="submission-detail">
+
+                            <span>
+                                Submitted At
+                            </span>
+
+                            <strong th:text="${#temporals.format(
+                                    submission.submittedAt,
+                                    'dd MMM yyyy, hh:mm a')}">
+
+                                Date
+
+                            </strong>
+
+                        </div>
+
+
+                        <!-- Secure PDF -->
+
+                        <div class="submission-detail">
+
+                            <span>
+                                Thesis Document
+                            </span>
+
+                            <a th:href="@{/documents/{id}
+                               (id=${submission.id})}"
+                               target="_blank"
+                               rel="noopener"
+                               class="document-link">
+
+                                📄 View / Open PDF
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================= ABSTRACT ================= -->
+
+                    <div class="submission-abstract">
+
+                        <span>
+                            Abstract
+                        </span>
+
+                        <p th:text="${submission.abstractText}">
+                            Abstract content...
+                        </p>
+
+                    </div>
+
+
+                    <!-- ================= EXISTING FEEDBACK ================= -->
+
+                    <div class="existing-feedback"
+                         th:if="${submission.reviewerFeedback != null
+                                and !#strings.isEmpty(
+                                submission.reviewerFeedback)}">
+
+                        <span>
+                            Current Reviewer Feedback
+                        </span>
+
+                        <p th:text="${submission.reviewerFeedback}">
+                            Reviewer feedback
+                        </p>
+
+                    </div>
+
+
+                    <!-- ================= REVIEW ACTIONS ================= -->
+
+                    <div class="review-action-section">
+
+
+                        <div class="review-action-header">
+
+                            <span>
+                                Reviewer Decision
+                            </span>
+
+                            <p>
+                                Add feedback or comments and select
+                                the appropriate review decision.
+                            </p>
+
+                        </div>
+
+
+                        <!-- ONE FORM FOR ALL THREE ACTIONS -->
+
+                        <form th:action="@{/reviewer/update-status}"
+                              method="post"
+                              class="review-form">
+
+
+                            <!-- Submission ID -->
+
+                            <input type="hidden"
+                                   name="submissionId"
+                                   th:value="${submission.id}">
+
+
+                            <!-- ================= FEEDBACK ================= -->
+
+                            <div class="form-group">
+
+                                <label th:for="'feedback-' + ${submission.id}">
+
+                                    Reviewer Feedback / Rejection Reason
+
+                                </label>
+
+
+                                <textarea th:id="'feedback-' + ${submission.id}"
+                                          name="feedback"
+                                          rows="4"
+                                          placeholder="Enter comments, suggestions, requested changes, or rejection reason..."
+                                          th:text="${submission.reviewerFeedback}">
+                                </textarea>
+
+
+                                <small class="feedback-hint">
+
+                                    Feedback is required when requesting
+                                    changes. Add a reason when rejecting
+                                    a submission.
+
+                                </small>
+
+                            </div>
+
+
+                            <!-- ================= BUTTONS ================= -->
+
+                            <div class="review-buttons">
+
+
+                                <!-- APPROVE -->
+
+                                <button type="submit"
+                                        name="status"
+                                        value="APPROVED"
+                                        class="review-btn approve-btn">
+
+                                    ✓ Approve
+
+                                </button>
+
+
+                                <!-- REQUEST CHANGES -->
+
+                                <button type="submit"
+                                        name="status"
+                                        value="CHANGES_REQUESTED"
+                                        class="review-btn changes-btn">
+
+                                    💬 Request Changes
+
+                                </button>
+
+
+                                <!-- REJECT -->
+
+                                <button type="submit"
+                                        name="status"
+                                        value="REJECTED"
+                                        class="review-btn reject-btn">
+
+                                    ✕ Reject
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <p>
+        ThesisFlow — Thesis Submission & Review Portal
+    </p>
+
+</footer>
+
+
+</body>
+</html>

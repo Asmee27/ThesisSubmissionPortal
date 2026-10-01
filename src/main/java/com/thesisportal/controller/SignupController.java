@@ -26,7 +26,7 @@ public class SignupController {
     public SignupController(
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
-            @Value("${REVIEWER_REGISTRATION_CODE:}") String reviewerRegistrationCode) {
+            @Value("${reviewer.registration.code:}") String reviewerRegistrationCode) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.reviewerRegistrationCode = reviewerRegistrationCode;

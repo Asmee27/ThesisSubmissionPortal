@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+                stage('Deploy with Docker') {
             steps {
                 withCredentials([
                     string(
@@ -30,7 +30,7 @@ pipeline {
                     )
                 ]) {
                     powershell '''
-                        .\\scripts\\deploy.ps1
+                        .\\scripts\\deploy-docker.ps1
                     '''
                 }
             }

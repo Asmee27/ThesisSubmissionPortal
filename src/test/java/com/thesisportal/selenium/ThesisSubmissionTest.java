@@ -68,7 +68,7 @@ class ThesisSubmissionTest {
         );
 
         assertTrue(
-                driver.getCurrentUrl().contains("/student"),
+                driver.getCurrentUrl().contains("/wrong-dashboard"),
                 "Student should be redirected to the student dashboard."
         );
     }

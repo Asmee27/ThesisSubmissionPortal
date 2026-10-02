@@ -20,11 +20,26 @@ pipeline {
                 bat 'mvn package -DskipTests'
             }
         }
+
+        stage('Deploy') {
+            steps {
+                withCredentials([
+                    string(
+                        credentialsId: 'thesisflow-db-password',
+                        variable: 'DB_PASSWORD'
+                    )
+                ]) {
+                    powershell '''
+                        .\\scripts\\deploy.ps1
+                    '''
+                }
+            }
+        }
     }
 
     post {
         success {
-            echo 'ThesisFlow CI pipeline completed successfully.'
+            echo 'ThesisFlow CI/CD pipeline completed successfully.'
         }
 
         failure {

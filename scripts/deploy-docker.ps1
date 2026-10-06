@@ -1,6 +1,10 @@
 $ErrorActionPreference = "Stop"
 
-$imageName = "thesisflow:v1"
+if (-not $env:DOCKER_IMAGE) {
+    throw "Deployment failed: DOCKER_IMAGE is not available."
+}
+
+$imageName = $env:DOCKER_IMAGE
 $containerName = "thesisflow-app"
 
 # --------------------------------------------------
@@ -11,23 +15,6 @@ if (-not $env:DB_PASSWORD) {
     throw "Deployment failed: DB_PASSWORD is not available."
 }
 
-# --------------------------------------------------
-# 2. Build Docker image
-# --------------------------------------------------
-
-Write-Host "Building ThesisFlow Docker image..."
-
-docker build -t $imageName .
-
-if ($LASTEXITCODE -ne 0) {
-    throw "Deployment failed: Docker image build failed."
-}
-
-Write-Host "Docker image built successfully."
-
-# --------------------------------------------------
-# 3. Stop and remove existing container
-# --------------------------------------------------
 
 $existingContainer = docker ps -aq -f "name=^${containerName}$"
 

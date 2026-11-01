@@ -2,8 +2,10 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.10.0'
+        // Keep the same name you already have in your Jenkinsfile / Manage Jenkins → Tools
+        maven 'Maven_3.10.0'
     }
+
     stages {
 
         stage('Checkout') {
@@ -35,26 +37,27 @@ pipeline {
                 ]) {
                     powershell '''
                         $image = "goldy12/thesisflow:build-$env:BUILD_NUMBER"
-
                         Write-Host "Building versioned image: $image"
 
                         docker build -t $image .
-
                         if ($LASTEXITCODE -ne 0) {
                             throw "Docker image build failed."
                         }
                     '''
 
                     powershell '''
+                        Write-Host "User length: $($env:DOCKER_USERNAME.Length), Token length: $($env:DOCKER_TOKEN.Length)"
+
                         $env:DOCKER_TOKEN | docker login -u $env:DOCKER_USERNAME --password-stdin
-                        if ($LASTEXITCODE -ne 0) { throw "Docker login failed." }
+                        if ($LASTEXITCODE -ne 0) {
+                            throw "Docker login failed."
+                        }
                     '''
 
                     powershell '''
                         $image = "goldy12/thesisflow:build-$env:BUILD_NUMBER"
 
                         docker push $image
-
                         if ($LASTEXITCODE -ne 0) {
                             throw "Docker Hub push failed."
                         }
@@ -75,7 +78,6 @@ pipeline {
                 ]) {
                     powershell '''
                         $env:DOCKER_IMAGE = "goldy12/thesisflow:build-$env:BUILD_NUMBER"
-
                         Write-Host "Deploying image: $env:DOCKER_IMAGE"
 
                         .\\scripts\\deploy-docker.ps1

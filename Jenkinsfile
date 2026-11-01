@@ -46,9 +46,7 @@ pipeline {
                     '''
 
                     powershell '''
-                        Write-Host "User length: $($env:DOCKER_USERNAME.Length), Token length: $($env:DOCKER_TOKEN.Length)"
-
-                        $env:DOCKER_TOKEN | docker login -u $env:DOCKER_USERNAME --password-stdin
+                        docker login -u $env:DOCKER_USERNAME -p $env:DOCKER_TOKEN
                         if ($LASTEXITCODE -ne 0) {
                             throw "Docker login failed."
                         }

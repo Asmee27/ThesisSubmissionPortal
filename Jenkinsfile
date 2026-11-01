@@ -52,6 +52,7 @@ pipeline {
                         }
                     '''
 
+
                     powershell '''
                         $image = "goldy12/thesisflow:build-$env:BUILD_NUMBER"
 

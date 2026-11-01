@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // Keep the same name you already have in your Jenkinsfile / Manage Jenkins → Tools
-        maven 'Maven_3.10.0'
+                maven 'Maven 3.10.0'
     }
 
     stages {

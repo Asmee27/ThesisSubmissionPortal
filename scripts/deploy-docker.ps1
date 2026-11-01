@@ -15,6 +15,9 @@ if (-not $env:DB_PASSWORD) {
     throw "Deployment failed: DB_PASSWORD is not available."
 }
 
+# --------------------------------------------------
+# 2. Stop and remove existing container
+# --------------------------------------------------
 
 $existingContainer = docker ps -aq -f "name=^${containerName}$"
 
@@ -38,13 +41,14 @@ if ($existingContainer) {
 }
 
 # --------------------------------------------------
-# 4. Start new container
+# 3. Start new container
 # --------------------------------------------------
 
 Write-Host "Starting new ThesisFlow container..."
 
 docker run -d `
     --name $containerName `
+    --add-host=host.docker.internal:host-gateway `
     -p 8083:8083 `
     -e DB_PASSWORD="$env:DB_PASSWORD" `
     -e SPRING_DATASOURCE_URL="jdbc:mysql://host.docker.internal:3306/thesis_portal" `
@@ -55,7 +59,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 # --------------------------------------------------
-# 5. Verify container is running
+# 4. Verify container is running
 # --------------------------------------------------
 
 Start-Sleep -Seconds 3
@@ -77,7 +81,7 @@ if ($running -ne "true") {
 Write-Host "Container is running."
 
 # --------------------------------------------------
-# 6. Retry-based application health check
+# 5. Retry-based application health check
 # --------------------------------------------------
 
 Write-Host "Waiting for ThesisFlow to become healthy..."
@@ -110,7 +114,7 @@ for ($attempt = 1; $attempt -le 6; $attempt++) {
 }
 
 # --------------------------------------------------
-# 7. Fail deployment if application never becomes healthy
+# 6. Fail deployment if application never becomes healthy
 # --------------------------------------------------
 
 if (-not $healthy) {
@@ -124,7 +128,7 @@ if (-not $healthy) {
 }
 
 # --------------------------------------------------
-# 8. Deployment success
+# 7. Deployment success
 # --------------------------------------------------
 
 Write-Host "Docker deployment completed successfully."

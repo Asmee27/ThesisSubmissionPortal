@@ -9,6 +9,11 @@
 
     <title>Reviewer Dashboard | ThesisFlow</title>
 
+    <!-- Google Fonts: Plus Jakarta Sans & Poppins (matching reference UI) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -19,45 +24,36 @@
 <nav class="navbar">
 
     <div class="logo">
-        <a href="/"
-           style="text-decoration: none; color: inherit;">
-            ThesisFlow
+        <a href="/" style="text-decoration: none; color: inherit;">
+            <span class="logo-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                    <path d="M2 12h20"></path>
+                </svg>
+            </span>
+            <span>Thesis<span class="logo-accent">Flow</span></span>
         </a>
     </div>
 
     <div class="nav-links">
-
         <a href="/">Home</a>
+        <a href="/reviewer" class="active">Reviewer Dashboard</a>
 
-        <a href="/reviewer"
-           class="active">
-            Reviewer Dashboard
-        </a>
+        <div sec:authorize="isAuthenticated()" style="display: flex; align-items: center; gap: 15px;">
+            <div class="user-session-chip">
+                <span class="user-avatar-dot"></span>
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--text-secondary);" sec:authentication="name">Reviewer</span>
+            </div>
 
-        <div sec:authorize="isAuthenticated()"
-             style="display: flex; align-items: center; gap: 15px;">
-
-            <span style="font-size: 14px; color: #667085;"
-                  sec:authentication="name">
-                Reviewer
-            </span>
-
-            <form th:action="@{/logout}"
-                  method="post"
-                  style="display: inline;">
-
-                <button type="submit"
-                        class="secondary-btn"
-                        style="padding: 8px 16px;
-                               font-size: 13px;
-                               cursor: pointer;">
-                    Logout
-                </button>
-
+            <form th:action="@{/logout}" method="post" style="display: inline;">
+                <button type="submit" class="secondary-btn" style="padding: 8px 18px; font-size: 13px; cursor: pointer;">Logout</button>
             </form>
-
         </div>
 
+        <div sec:authorize="!isAuthenticated()">
+            <a href="/login" class="primary-btn" style="padding: 10px 22px; font-size: 13.5px;">Login</a>
+        </div>
     </div>
 
 </nav>
@@ -69,70 +65,86 @@
 
     <div class="dashboard-container">
 
-
         <!-- ================= HEADER ================= -->
 
         <div class="dashboard-header">
-
             <div>
-
                 <span class="badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
                     FACULTY REVIEWER PORTAL
                 </span>
 
-                <h1>
-                    Thesis Review Dashboard
-                </h1>
+                <h1>Thesis Review Dashboard</h1>
 
                 <p>
-                    Examine submitted theses, review documents,
-                    provide feedback, and issue evaluation decisions.
+                    Examine submitted research theses, inspect full manuscript PDFs, provide line-by-line feedback, and issue official evaluation decisions.
                 </p>
-
             </div>
-
         </div>
 
 
         <!-- ================= ERROR MESSAGE ================= -->
 
-        <div class="error-message"
-             th:if="${error != null}">
-
-            <span th:text="${error}">
-                Unable to process review action.
-            </span>
-
+        <div class="error-message" th:if="${error != null}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span th:text="${error}">Unable to process review action.</span>
         </div>
 
 
-        <!-- ================= SUMMARY ================= -->
+        <!-- ================= STATS SUMMARY (REFERENCE UI CARDS) ================= -->
 
-        <div class="student-info-card">
+        <div class="student-stats-row">
 
-            <div>
-
-                <span class="info-label">
-                    Total Submissions
-                </span>
-
-                <strong th:text="${#lists.size(submissions)}">
-                    0
-                </strong>
-
+            <!-- Card 1: Sunset Coral Card -->
+            <div class="student-banner-card orange">
+                <div class="student-banner-left">
+                    <div class="student-id-badge">
+                        <span class="badge-label">Queue</span>
+                        <span class="badge-val">Active</span>
+                    </div>
+                    <div>
+                        <span class="banner-meta-tag">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                            Review Queue
+                        </span>
+                        <svg width="80" height="18" viewBox="0 0 80 18" style="display: block; margin-top: 4px;">
+                            <path d="M2,9 Q20,2 40,9 T78,9" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2.2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="student-banner-right">
+                    <span class="stat-title">Submissions in Queue</span>
+                    <span class="stat-count" th:text="${#lists.size(submissions)}">0</span>
+                </div>
             </div>
 
-
-            <div>
-
-                <span class="info-label">
-                    Role
-                </span>
-
-                <strong>
-                    Faculty Reviewer
-                </strong>
-
+            <!-- Card 2: Royal Purple Card -->
+            <div class="student-banner-card purple">
+                <div class="student-banner-left">
+                    <div class="student-id-badge">
+                        <span class="badge-label">Portal</span>
+                        <span class="badge-val">Faculty</span>
+                    </div>
+                    <div>
+                        <span class="banner-meta-tag">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            Official Authority
+                        </span>
+                        <svg width="80" height="18" viewBox="0 0 80 18" style="display: block; margin-top: 4px;">
+                            <path d="M2,10 Q20,3 40,10 T78,8" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2.2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="student-banner-right">
+                    <span class="stat-title">Designated Role</span>
+                    <span class="stat-count" style="font-size: 19px;">Faculty Reviewer</span>
+                </div>
             </div>
 
         </div>
@@ -140,325 +152,214 @@
 
         <!-- ================= EMPTY STATE ================= -->
 
-        <div class="empty-state"
-             th:if="${#lists.isEmpty(submissions)}">
-
+        <div class="empty-state" th:if="${#lists.isEmpty(submissions)}">
             <div class="empty-icon">
-                📂
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
             </div>
-
-            <h2>
-                No submissions available for review
-            </h2>
-
-            <p>
-                Student thesis submissions will appear here
-                once submitted.
-            </p>
-
+            <h2>No submissions available for review</h2>
+            <p>Student thesis submissions will appear here automatically once uploaded.</p>
         </div>
 
 
         <!-- ================= SUBMISSION SECTION ================= -->
 
-        <div class="submission-section"
-             th:unless="${#lists.isEmpty(submissions)}">
+        <div class="submission-section" th:unless="${#lists.isEmpty(submissions)}">
 
-
-            <div class="section-heading">
-
-                <h2>
-                    Submitted Theses
-                </h2>
-
-                <span th:text="${#lists.size(submissions)
-                                + ' total submission(s)'}">
+            <div class="submission-section-header">
+                <h2>Submitted Theses for Review</h2>
+                <span class="submission-count-pill" th:text="${#lists.size(submissions) + ' total submission(s)'}">
                     0 submissions
                 </span>
-
             </div>
-
 
             <div class="submission-list">
 
+                <!-- Single Submission Card -->
+                <div class="submission-card" th:each="submission : ${submissions}">
 
-                <!-- ================= SINGLE SUBMISSION ================= -->
-
-                <div class="submission-card"
-                     th:each="submission : ${submissions}">
-
-
-                    <!-- ================= CARD HEADER ================= -->
-
+                    <!-- Card Header -->
                     <div class="submission-card-header">
-
                         <div>
-
-                            <span class="submission-id"
-                                  th:text="'Submission #' + ${submission.id}">
+                            <span class="submission-id-pill" th:text="'Submission #' + ${submission.id}">
                                 Submission #1
                             </span>
-
                             <h3 th:text="${submission.title}">
                                 Thesis Title
                             </h3>
-
                         </div>
 
-
-                        <!-- Status Badge -->
-
+                        <!-- Status Badge with Status Dot -->
                         <span class="dashboard-status"
-                              th:classappend="
-                              ${submission.status == 'APPROVED'}
-                              ? ' status-approved'
-                              :
-                              (${submission.status == 'REJECTED'}
-                              ? ' status-rejected'
-                              :
-                              (${submission.status == 'CHANGES_REQUESTED'}
-                              ? ' status-changes'
-                              : ' status-submitted'))"
-                              th:text="${submission.status}">
-
-                            SUBMITTED
-
+                              th:classappend="${submission.status == 'APPROVED'} ? ' status-approved' :
+                                             (${submission.status == 'REJECTED'} ? ' status-rejected' :
+                                             (${submission.status == 'CHANGES_REQUESTED'} ? ' status-changes' :
+                                             ' status-submitted'))">
+                            <span class="status-dot"></span>
+                            <span th:text="${submission.status}">SUBMITTED</span>
                         </span>
-
                     </div>
 
-
-                    <!-- ================= DETAILS ================= -->
-
+                    <!-- Details Grid -->
                     <div class="submission-grid">
 
-
                         <div class="submission-detail">
-
-                            <span>
-                                Student Name
-                            </span>
-
-                            <strong th:text="${submission.studentName}">
-                                Student Name
-                            </strong>
-
+                            <div class="detail-icon-chip coral">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            </div>
+                            <div class="detail-content">
+                                <span>Student Name</span>
+                                <strong th:text="${submission.studentName}">Student Name</strong>
+                            </div>
                         </div>
 
-
                         <div class="submission-detail">
-
-                            <span>
-                                Student ID
-                            </span>
-
-                            <strong th:text="${submission.studentId}">
-                                Student ID
-                            </strong>
-
+                            <div class="detail-icon-chip purple">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            </div>
+                            <div class="detail-content">
+                                <span>Student ID</span>
+                                <strong th:text="${submission.studentId}">Student ID</strong>
+                            </div>
                         </div>
 
-
                         <div class="submission-detail">
-
-                            <span>
-                                Department
-                            </span>
-
-                            <strong th:text="${submission.department}">
-                                Department
-                            </strong>
-
+                            <div class="detail-icon-chip teal">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                            </div>
+                            <div class="detail-content">
+                                <span>Department</span>
+                                <strong th:text="${submission.department}">Department</strong>
+                            </div>
                         </div>
 
-
                         <div class="submission-detail">
-
-                            <span>
-                                Faculty Guide
-                            </span>
-
-                            <strong th:text="${submission.guideName}">
-                                Guide Name
-                            </strong>
-
+                            <div class="detail-icon-chip coral">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            </div>
+                            <div class="detail-content">
+                                <span>Faculty Guide</span>
+                                <strong th:text="${submission.guideName}">Guide Name</strong>
+                            </div>
                         </div>
 
-
                         <div class="submission-detail">
-
-                            <span>
-                                Submitted At
-                            </span>
-
-                            <strong th:text="${#temporals.format(
-                                    submission.submittedAt,
-                                    'dd MMM yyyy, hh:mm a')}">
-
-                                Date
-
-                            </strong>
-
+                            <div class="detail-icon-chip purple">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                            </div>
+                            <div class="detail-content">
+                                <span>Submitted At</span>
+                                <strong th:text="${#temporals.format(submission.submittedAt, 'dd MMM yyyy, hh:mm a')}">Date</strong>
+                            </div>
                         </div>
 
-
-                        <!-- Secure PDF -->
-
                         <div class="submission-detail">
-
-                            <span>
-                                Thesis Document
-                            </span>
-
-                            <a th:href="@{/documents/{id}
-                               (id=${submission.id})}"
-                               target="_blank"
-                               rel="noopener"
-                               class="document-link">
-
-                                📄 View / Open PDF
-
-                            </a>
-
+                            <div class="detail-icon-chip purple">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                            </div>
+                            <div class="detail-content">
+                                <span>Thesis Manuscript</span>
+                                <div>
+                                    <a th:href="@{/documents/{id}(id=${submission.id})}"
+                                       target="_blank"
+                                       rel="noopener"
+                                       class="doc-pill-btn">
+                                        View PDF ↗
+                                    </a>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
 
-
-                    <!-- ================= ABSTRACT ================= -->
-
-                    <div class="submission-abstract">
-
-                        <span>
-                            Abstract
-                        </span>
-
-                        <p th:text="${submission.abstractText}">
-                            Abstract content...
-                        </p>
-
+                    <!-- Abstract Summary -->
+                    <div class="submission-abstract-box">
+                        <div class="abstract-header">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                            <span>Abstract Summary</span>
+                        </div>
+                        <p th:text="${submission.abstractText}">Abstract content...</p>
                     </div>
 
-
-                    <!-- ================= EXISTING FEEDBACK ================= -->
-
-                    <div class="existing-feedback"
-                         th:if="${submission.reviewerFeedback != null
-                                and !#strings.isEmpty(
-                                submission.reviewerFeedback)}">
-
-                        <span>
-                            Current Reviewer Feedback
-                        </span>
-
-                        <p th:text="${submission.reviewerFeedback}">
-                            Reviewer feedback
-                        </p>
-
+                    <!-- Existing Feedback (if any) -->
+                    <div class="submission-feedback-box"
+                         th:if="${submission.reviewerFeedback != null and !#strings.isEmpty(submission.reviewerFeedback)}">
+                        <div class="feedback-header">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            <span>Current Recorded Review Feedback</span>
+                        </div>
+                        <p th:text="${submission.reviewerFeedback}">Reviewer feedback will appear here.</p>
                     </div>
 
-
-                    <!-- ================= REVIEW ACTIONS ================= -->
-
+                    <!-- Review Actions Section -->
                     <div class="review-action-section">
 
-
                         <div class="review-action-header">
-
                             <span>
-                                Reviewer Decision
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                Official Faculty Evaluation & Decision
                             </span>
-
                             <p>
-                                Add feedback or comments and select
-                                the appropriate review decision.
+                                Provide detailed committee observations or revision requests, then select the appropriate clearance decision below.
                             </p>
-
                         </div>
 
-
-                        <!-- ONE FORM FOR ALL THREE ACTIONS -->
-
+                        <!-- One Form For All Three Actions -->
                         <form th:action="@{/reviewer/update-status}"
                               method="post"
                               class="review-form">
 
-
                             <!-- Submission ID -->
-
                             <input type="hidden"
                                    name="submissionId"
                                    th:value="${submission.id}">
 
-
-                            <!-- ================= FEEDBACK ================= -->
-
-                            <div class="form-group">
-
+                            <!-- Feedback Textarea -->
+                            <div class="form-group" style="margin-bottom: 0;">
                                 <label th:for="'feedback-' + ${submission.id}">
-
-                                    Reviewer Feedback / Rejection Reason
-
+                                    Reviewer Comments / Revision Instructions
                                 </label>
-
 
                                 <textarea th:id="'feedback-' + ${submission.id}"
                                           name="feedback"
                                           rows="4"
-                                          placeholder="Enter comments, suggestions, requested changes, or rejection reason..."
-                                          th:text="${submission.reviewerFeedback}">
-                                </textarea>
-
+                                          placeholder="Enter feedback, required revisions, or reasons for rejection..."
+                                          th:text="${submission.reviewerFeedback}"></textarea>
 
                                 <small class="feedback-hint">
-
-                                    Feedback is required when requesting
-                                    changes. Add a reason when rejecting
-                                    a submission.
-
+                                    * Feedback is mandatory when requesting changes or rejecting a manuscript.
                                 </small>
-
                             </div>
 
-
-                            <!-- ================= BUTTONS ================= -->
-
+                            <!-- Decision Action Buttons -->
                             <div class="review-buttons">
 
-
                                 <!-- APPROVE -->
-
                                 <button type="submit"
                                         name="status"
                                         value="APPROVED"
                                         class="review-btn approve-btn">
-
-                                    ✓ Approve
-
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    Approve Thesis
                                 </button>
 
-
                                 <!-- REQUEST CHANGES -->
-
                                 <button type="submit"
                                         name="status"
                                         value="CHANGES_REQUESTED"
                                         class="review-btn changes-btn">
-
-                                    💬 Request Changes
-
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                    Request Changes
                                 </button>
 
-
                                 <!-- REJECT -->
-
                                 <button type="submit"
                                         name="status"
                                         value="REJECTED"
                                         class="review-btn reject-btn">
-
-                                    ✕ Reject
-
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    Reject Thesis
                                 </button>
 
                             </div>
@@ -480,14 +381,26 @@
 
 <!-- ================= FOOTER ================= -->
 
-<footer class="footer">
+<footer>
+    <div class="footer-logo">
+        <span class="logo-badge" style="width: 28px; height: 28px; border-radius: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+            </svg>
+        </span>
+        <span>Thesis<span class="logo-accent">Flow</span></span>
+    </div>
 
     <p>
-        ThesisFlow — Thesis Submission & Review Portal
+        Academic Thesis Submission & Review Portal
     </p>
 
+    <p class="copyright">
+        © 2026 ThesisFlow. All rights reserved.
+    </p>
 </footer>
-
 
 </body>
 </html>

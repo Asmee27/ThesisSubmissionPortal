@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ThesisFlow | Thesis Submission Portal</title>
+    <title>ThesisFlow | Academic Thesis Portal</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans & Poppins (matching reference UI) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -16,23 +21,35 @@
 <nav class="navbar">
 
     <div class="logo">
-        <a href="/" style="text-decoration: none; color: inherit;">ThesisFlow</a>
+        <a href="/" style="text-decoration: none; color: inherit;">
+            <span class="logo-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                    <path d="M2 12h20"></path>
+                </svg>
+            </span>
+            <span>Thesis<span class="logo-accent">Flow</span></span>
+        </a>
     </div>
 
     <div class="nav-links">
-        <a href="/">Home</a>
+        <a href="/" class="active">Home</a>
         <a sec:authorize="hasAuthority('ROLE_STUDENT')" href="/submit">Submit Thesis</a>
         <a sec:authorize="hasAuthority('ROLE_STUDENT')" href="/student">Student Dashboard</a>
         <a sec:authorize="hasAuthority('ROLE_REVIEWER')" href="/reviewer">Reviewer Dashboard</a>
         
         <div sec:authorize="isAuthenticated()" style="display: flex; align-items: center; gap: 15px;">
-            <span style="font-size: 14px; color: #667085;" sec:authentication="name">User</span>
+            <div class="user-session-chip">
+                <span class="user-avatar-dot"></span>
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--text-secondary);" sec:authentication="name">User</span>
+            </div>
             <form th:action="@{/logout}" method="post" style="display: inline;">
-                <button type="submit" class="secondary-btn" style="padding: 8px 16px; font-size: 13px; cursor: pointer;">Logout</button>
+                <button type="submit" class="secondary-btn" style="padding: 8px 18px; font-size: 13px; cursor: pointer;">Logout</button>
             </form>
         </div>
         <div sec:authorize="!isAuthenticated()">
-            <a href="/login" class="primary-btn" style="padding: 8px 16px; font-size: 13px;">Login</a>
+            <a href="/login" class="primary-btn" style="padding: 10px 22px; font-size: 13.5px;">Login</a>
         </div>
     </div>
 
@@ -48,6 +65,10 @@
     <div class="hero-content">
 
         <span class="badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
             Academic Submission Platform
         </span>
 
@@ -57,49 +78,68 @@
         </h1>
 
         <p>
-            ThesisFlow provides a centralized platform for students
-            and faculty to manage thesis submissions, revisions,
-            reviews and approvals efficiently.
+            ThesisFlow provides a centralized, streamlined platform for graduate students
+            and faculty to manage thesis submissions, revisions, reviews, and defense approvals efficiently.
         </p>
 
 
         <div class="hero-buttons">
 
-            <a href="/submit"
-               class="primary-btn">
-
-                Submit Thesis
-
+            <a href="/submit" class="primary-btn">
+                <span>Submit Thesis</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
             </a>
 
 
-            <a href="/student"
-               class="secondary-btn">
-
+            <a href="/student" class="secondary-btn">
                 Track Submission
-
             </a>
 
         </div>
 
 
-        <!-- FEATURES -->
+        <!-- QUICK FEATURES (MIRRORING PILL TAGS FROM REFERENCE) -->
 
         <div class="quick-features">
 
             <div class="quick-feature">
-                <strong>Secure</strong>
-                <span>Document submission</span>
+                <div class="quick-feature-icon coral">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <div class="quick-feature-text">
+                    <strong>Secure</strong>
+                    <span>Document submission</span>
+                </div>
             </div>
 
             <div class="quick-feature">
-                <strong>Trackable</strong>
-                <span>Real-time status</span>
+                <div class="quick-feature-icon purple">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                </div>
+                <div class="quick-feature-text">
+                    <strong>Trackable</strong>
+                    <span>Real-time status</span>
+                </div>
             </div>
 
             <div class="quick-feature">
-                <strong>Organized</strong>
-                <span>Revision history</span>
+                <div class="quick-feature-icon teal">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+                <div class="quick-feature-text">
+                    <strong>Organized</strong>
+                    <span>Revision history</span>
+                </div>
             </div>
 
         </div>
@@ -107,112 +147,117 @@
     </div>
 
 
-    <!-- RIGHT SIDE -->
+    <!-- RIGHT SIDE: HERO INTERACTIVE MOCKUP (MIRRORING USER'S REFERENCE DESIGN) -->
 
-    <div class="workflow-card">
+    <div class="hero-mockup-wrapper">
 
-        <div class="workflow-header">
-
-            <div>
-                <span class="workflow-label">
-                    THESIS WORKFLOW
-                </span>
-
-                <h3>
-                    Submission Progress
-                </h3>
+        <!-- Top Reference Card 1: Warm Coral / Orange Banner -->
+        <div class="hero-stat-card orange">
+            <div class="stat-card-left">
+                <div class="stat-date-badge">
+                    <span class="day">Sat</span>
+                    <span class="date">25</span>
+                </div>
+                <div>
+                    <span class="stat-meta-pill">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                        In Review
+                    </span>
+                    <svg width="90" height="20" viewBox="0 0 90 20" style="display: block; margin-top: 4px;">
+                        <path d="M2,10 Q22,2 45,10 T88,10" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2.2" stroke-linecap="round" />
+                    </svg>
+                </div>
             </div>
+            <div class="stat-metric-right">
+                <span class="metric-label">Turnaround Time</span>
+                <span class="metric-value">2.4 Days</span>
+            </div>
+        </div>
 
+        <!-- Top Reference Card 2: Deep Plum / Royal Purple Banner -->
+        <div class="hero-stat-card purple">
+            <div class="stat-card-left">
+                <div class="stat-date-badge">
+                    <span class="day">Tue</span>
+                    <span class="date">28</span>
+                </div>
+                <div>
+                    <span class="stat-meta-pill">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        Approval Rate
+                    </span>
+                    <svg width="90" height="20" viewBox="0 0 90 20" style="display: block; margin-top: 4px;">
+                        <path d="M2,12 Q24,4 45,11 T88,8" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2.2" stroke-linecap="round" />
+                    </svg>
+                </div>
+            </div>
+            <div class="stat-metric-right">
+                <span class="metric-label">Clearance Success</span>
+                <span class="metric-value">94.8%</span>
+            </div>
         </div>
 
 
-        <!-- STEP 1 -->
+        <!-- WORKFLOW PROGRESS CARD -->
 
-        <div class="workflow-item">
+        <div class="workflow-card">
 
-            <div class="number">
-                1
+            <div class="workflow-header">
+                <div>
+                    <span class="workflow-label">
+                        THESIS LIFECYCLE
+                    </span>
+                    <h3>Submission Progress</h3>
+                </div>
+                <span class="status-indicator-pill">Live Flow</span>
             </div>
 
-            <div>
 
-                <strong>
-                    Submit Thesis
-                </strong>
-
-                <p>
-                    Upload your thesis PDF and project information.
-                </p>
-
+            <!-- STEP 1 -->
+            <div class="workflow-item completed">
+                <div class="number">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <div>
+                    <strong>Submit Thesis</strong>
+                    <p>Upload thesis PDF and project metadata.</p>
+                </div>
             </div>
 
-        </div>
 
-
-        <!-- STEP 2 -->
-
-        <div class="workflow-item">
-
-            <div class="number">
-                2
+            <!-- STEP 2 -->
+            <div class="workflow-item active">
+                <div class="number">
+                    2
+                </div>
+                <div>
+                    <strong>Document Validation</strong>
+                    <p>Submission details & formatting verified.</p>
+                </div>
             </div>
 
-            <div>
 
-                <strong>
-                    Document Validation
-                </strong>
-
-                <p>
-                    Submission details and document are validated.
-                </p>
-
+            <!-- STEP 3 -->
+            <div class="workflow-item">
+                <div class="number">
+                    3
+                </div>
+                <div>
+                    <strong>Faculty Review</strong>
+                    <p>Reviewer evaluates research & gives feedback.</p>
+                </div>
             </div>
 
-        </div>
 
-
-        <!-- STEP 3 -->
-
-        <div class="workflow-item">
-
-            <div class="number">
-                3
-            </div>
-
-            <div>
-
-                <strong>
-                    Faculty Review
-                </strong>
-
-                <p>
-                    Reviewer evaluates the thesis and provides feedback.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- STEP 4 -->
-
-        <div class="workflow-item">
-
-            <div class="number">
-                4
-            </div>
-
-            <div>
-
-                <strong>
-                    Decision & Status
-                </strong>
-
-                <p>
-                    Track approval, rejection or requested changes.
-                </p>
-
+            <!-- STEP 4 -->
+            <div class="workflow-item">
+                <div class="number">
+                    4
+                </div>
+                <div>
+                    <strong>Decision & Status</strong>
+                    <p>Track formal approval, revision, or clearance.</p>
+                </div>
             </div>
 
         </div>
@@ -229,16 +274,15 @@
     <div class="section-heading">
 
         <span class="badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
             SIMPLE WORKFLOW
         </span>
 
-        <h2>
-            Everything in one place
-        </h2>
+        <h2>Everything in one place</h2>
 
         <p>
-            No more scattered emails, multiple document copies
-            or unclear submission status.
+            No more scattered emails, lost document revisions,
+            or unclear submission status. Manage everything smoothly.
         </p>
 
     </div>
@@ -247,74 +291,46 @@
     <div class="feature-grid">
 
         <div class="feature-card">
-
             <div class="feature-icon">
                 01
             </div>
-
-            <h3>
-                Easy Submission
-            </h3>
-
+            <h3>Easy Submission</h3>
             <p>
-                Upload thesis documents along with student,
-                guide and project information.
+                Upload thesis documents along with student, guide, and departmental project information seamlessly.
             </p>
-
         </div>
 
 
         <div class="feature-card">
-
             <div class="feature-icon">
                 02
             </div>
-
-            <h3>
-                Faculty Review
-            </h3>
-
+            <h3>Faculty Review</h3>
             <p>
-                Reviewers can examine submissions, provide comments
-                and make review decisions.
+                Designated reviewers examine submissions, provide line-by-line feedback, and submit grading decisions.
             </p>
-
         </div>
 
 
         <div class="feature-card">
-
             <div class="feature-icon">
                 03
             </div>
-
-            <h3>
-                Version Tracking
-            </h3>
-
+            <h3>Version Tracking</h3>
             <p>
-                Revised submissions can be maintained without
-                losing previous thesis versions.
+                Revised submissions can be tracked cleanly without ever losing historical drafts or committee remarks.
             </p>
-
         </div>
 
 
         <div class="feature-card">
-
             <div class="feature-icon">
                 04
             </div>
-
-            <h3>
-                Status Tracking
-            </h3>
-
+            <h3>Status Tracking</h3>
             <p>
-                Students can easily track whether their thesis
-                is submitted, under review or approved.
+                Real-time dashboard updates show whether your thesis is submitted, under review, or cleared for defense.
             </p>
-
         </div>
 
     </div>
@@ -327,23 +343,14 @@
 <section class="cta-section">
 
     <div>
-
-        <h2>
-            Ready to submit your thesis?
-        </h2>
-
+        <h2>Ready to submit your thesis?</h2>
         <p>
-            Start your submission and track the complete
-            review process from one dashboard.
+            Start your submission and track the complete review process from one modern dashboard.
         </p>
-
     </div>
 
-    <a href="/submit"
-       class="cta-button">
-
+    <a href="/submit" class="cta-button">
         Start Submission →
-
     </a>
 
 </section>
@@ -354,19 +361,25 @@
 <footer>
 
     <div class="footer-logo">
-        ThesisFlow
+        <span class="logo-badge" style="width: 28px; height: 28px; border-radius: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+            </svg>
+        </span>
+        <span>Thesis<span class="logo-accent">Flow</span></span>
     </div>
 
     <p>
-        Thesis Submission & Review Portal
+        Academic Thesis Submission & Review Portal
     </p>
 
     <p class="copyright">
-        © 2026 ThesisFlow
+        © 2026 ThesisFlow. All rights reserved.
     </p>
 
 </footer>
-
 
 </body>
 </html>

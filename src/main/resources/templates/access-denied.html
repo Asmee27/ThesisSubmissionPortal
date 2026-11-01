@@ -4,43 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Access Denied | ThesisFlow</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
 
+<!-- ================= NAVBAR ================= -->
+
 <nav class="navbar">
     <div class="logo">
-        <a href="/" style="text-decoration: none; color: inherit;">ThesisFlow</a>
+        <a href="/" style="text-decoration: none; color: inherit;">
+            <span class="logo-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                    <path d="M2 12h20"></path>
+                </svg>
+            </span>
+            <span>Thesis<span class="logo-accent">Flow</span></span>
+        </a>
     </div>
 
     <div class="nav-links">
         <a href="/">Home</a>
+        <a href="/login" class="primary-btn">Sign In</a>
     </div>
 </nav>
 
-<main class="dashboard-page">
-    <div class="dashboard-container" style="max-width: 600px;">
+<main class="dashboard-page" style="display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 160px);">
+    <div class="dashboard-container" style="max-width: 580px; width: 100%;">
         <div class="empty-state">
-            <div class="empty-icon" style="background: #fef2f2; color: #dc2626;">
-                🚫
+            <div class="empty-icon" style="background: #fff0f0; color: #dc2626; box-shadow: 0 4px 14px rgba(220, 38, 38, 0.15);">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                </svg>
             </div>
             <h2>403 - Access Denied</h2>
             <p>
-                You do not have permission to access this resource. Students cannot access reviewer pages and reviewers cannot access student pages.
+                You do not have permission to access this resource. Student accounts cannot view reviewer tools, and reviewer accounts cannot view student-exclusive submissions.
             </p>
 
-            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+            <div style="display: flex; gap: 14px; justify-content: center; margin-top: 24px;">
                 <a href="/" class="secondary-btn">Go to Home</a>
-                <a href="/login" class="primary-btn">Switch Account</a>
+                <a href="/login" class="primary-btn">Switch Account →</a>
             </div>
         </div>
     </div>
 </main>
 
-<footer class="footer">
+<!-- ================= FOOTER ================= -->
+
+<footer>
+    <div class="footer-logo">
+        <span class="logo-badge" style="width: 28px; height: 28px; border-radius: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+            </svg>
+        </span>
+        <span>Thesis<span class="logo-accent">Flow</span></span>
+    </div>
+
     <p>
-        ThesisFlow — Thesis Submission & Review Portal
+        Academic Thesis Submission & Review Portal
+    </p>
+
+    <p class="copyright">
+        © 2026 ThesisFlow. All rights reserved.
     </p>
 </footer>
 

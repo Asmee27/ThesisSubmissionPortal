@@ -5,21 +5,34 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Submission Successful | ThesisFlow</title>
 
-    <link rel="stylesheet"
-          href="/css/style.css">
+    <!-- Google Fonts: Plus Jakarta Sans & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
 
-<nav class="navbar">
+<!-- ================= NAVBAR ================= -->
 
+<nav class="navbar">
     <div class="logo">
-        <a href="/" style="text-decoration: none; color: inherit;">ThesisFlow</a>
+        <a href="/" style="text-decoration: none; color: inherit;">
+            <span class="logo-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                    <path d="M2 12h20"></path>
+                </svg>
+            </span>
+            <span>Thesis<span class="logo-accent">Flow</span></span>
+        </a>
     </div>
 
     <div class="nav-links">
@@ -27,101 +40,108 @@
         <a href="/submit">Submit Thesis</a>
         <a href="/student">Student Dashboard</a>
         <div sec:authorize="isAuthenticated()" style="display: flex; align-items: center; gap: 15px;">
-            <span style="font-size: 14px; color: #667085;" sec:authentication="name">Student</span>
+            <div class="user-session-chip">
+                <span class="user-avatar-dot"></span>
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--text-secondary);" sec:authentication="name">Student</span>
+            </div>
             <form th:action="@{/logout}" method="post" style="display: inline;">
-                <button type="submit" class="secondary-btn" style="padding: 8px 16px; font-size: 13px; cursor: pointer;">Logout</button>
+                <button type="submit" class="secondary-btn" style="padding: 8px 18px; font-size: 13px; cursor: pointer;">Logout</button>
             </form>
         </div>
         <div sec:authorize="!isAuthenticated()">
-            <a href="/login" class="primary-btn" style="padding: 8px 16px; font-size: 13px;">Login</a>
+            <a href="/login" class="primary-btn" style="padding: 10px 22px; font-size: 13.5px;">Login</a>
         </div>
     </div>
-
 </nav>
 
+<!-- ================= SUCCESS CONTENT ================= -->
 
 <main class="form-page">
 
-    <div class="form-container success-container">
+    <div class="form-container success-container" style="max-width: 680px; text-align: center;">
 
-        <div class="success-icon">
-            ✓
+        <div class="success-icon" style="background: #eaf8ef; color: #16a34a; box-shadow: 0 8px 24px rgba(22, 163, 74, 0.22);">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
 
-        <h1>Thesis Submitted!</h1>
+        <span class="badge" style="background: #eaf8ef; color: #16a34a; border-color: #bce6cc; margin-bottom: 12px;">
+            OFFICIALLY RECORDED
+        </span>
 
-        <p class="success-description">
-            Your thesis has been successfully received.
+        <h1 style="font-size: 32px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.6px; margin-bottom: 8px;">Thesis Submitted Successfully!</h1>
+
+        <p class="success-description" style="color: var(--text-secondary); font-size: 15.5px; margin-bottom: 28px;">
+            Your thesis manuscript has been validated and queued for faculty review.
         </p>
 
+        <div class="submission-details" style="background: #f8f9fd; border: 1.5px solid var(--border-color); border-radius: var(--radius-lg); padding: 10px 22px; text-align: left; margin-bottom: 30px;">
 
-        <div class="submission-details">
-
-            <div class="detail-row">
-                <span>Student</span>
-
-                <strong th:text="${submission.studentName}">
-                    Student Name
-                </strong>
+            <div class="detail-row" style="padding: 14px 0; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
+                <span style="color: var(--text-muted); font-size: 13px; font-weight: 600; text-transform: uppercase;">Scholar Name</span>
+                <strong style="color: var(--text-primary); font-size: 14px; font-weight: 700;" th:text="${submission.studentName}">Student Name</strong>
             </div>
 
-
-            <div class="detail-row">
-                <span>Student ID</span>
-
-                <strong th:text="${submission.studentId}">
-                    Student ID
-                </strong>
+            <div class="detail-row" style="padding: 14px 0; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
+                <span style="color: var(--text-muted); font-size: 13px; font-weight: 600; text-transform: uppercase;">Student ID</span>
+                <strong style="color: var(--text-primary); font-size: 14px; font-weight: 700;" th:text="${submission.studentId}">Student ID</strong>
             </div>
 
-
-            <div class="detail-row">
-                <span>Thesis</span>
-
-                <strong th:text="${submission.title}">
-                    Thesis Title
-                </strong>
+            <div class="detail-row" style="padding: 14px 0; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
+                <span style="color: var(--text-muted); font-size: 13px; font-weight: 600; text-transform: uppercase;">Thesis Title</span>
+                <strong style="color: var(--text-primary); font-size: 14px; font-weight: 700; max-width: 60%; text-align: right;" th:text="${submission.title}">Thesis Title</strong>
             </div>
 
-
-            <div class="detail-row">
-                <span>Department</span>
-
-                <strong th:text="${submission.department}">
-                    Department
-                </strong>
+            <div class="detail-row" style="padding: 14px 0; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
+                <span style="color: var(--text-muted); font-size: 13px; font-weight: 600; text-transform: uppercase;">Department</span>
+                <strong style="color: var(--text-primary); font-size: 14px; font-weight: 700;" th:text="${submission.department}">Department</strong>
             </div>
 
-
-            <div class="detail-row">
-                <span>Status</span>
-
-                <strong class="status-badge"
-                        th:text="${submission.status}">
-                    SUBMITTED
-                </strong>
+            <div class="detail-row" style="padding: 14px 0; display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted); font-size: 13px; font-weight: 600; text-transform: uppercase;">Initial Status</span>
+                <span class="dashboard-status status-submitted" style="padding: 4px 14px;">
+                    <span class="status-dot"></span>
+                    <span th:text="${submission.status}">SUBMITTED</span>
+                </span>
             </div>
 
         </div>
 
+        <div class="success-actions" style="display: flex; justify-content: center; gap: 14px;">
+            <a href="/student" class="primary-btn">
+                <span>Go to Student Dashboard →</span>
+            </a>
 
-        <div class="success-actions">
-
-            <a href="/"
-               class="secondary-btn">
+            <a href="/" class="secondary-btn">
                 Home
             </a>
-
-            <a href="/submit"
-               class="primary-btn">
-                New Submission
-            </a>
-
         </div>
 
     </div>
 
 </main>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+    <div class="footer-logo">
+        <span class="logo-badge" style="width: 28px; height: 28px; border-radius: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+            </svg>
+        </span>
+        <span>Thesis<span class="logo-accent">Flow</span></span>
+    </div>
+
+    <p>
+        Academic Thesis Submission & Review Portal
+    </p>
+
+    <p class="copyright">
+        © 2026 ThesisFlow. All rights reserved.
+    </p>
+</footer>
 
 </body>
 </html>

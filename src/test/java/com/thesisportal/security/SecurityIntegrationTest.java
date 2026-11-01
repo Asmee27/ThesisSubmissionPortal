@@ -16,7 +16,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.mock.web.MockMultipartFile;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
@@ -342,6 +344,34 @@ public class SecurityIntegrationTest {
 
                         Files.deleteIfExists(uploadDirectory.resolve("test.pdf"));
                     }
+
+        @Test
+        @WithMockUser(username = "student", authorities = {"ROLE_STUDENT"})
+        public void testStudentCanUploadPdfWithoutBrowserMimeType()
+                        throws Exception {
+
+                MockMultipartFile thesisFile = new MockMultipartFile(
+                                "thesisFile",
+                                "thesis.pdf",
+                                null,
+                                "%PDF-1.4 test".getBytes());
+
+                mockMvc.perform(multipart("/submit")
+                                .file(thesisFile)
+                                .param("studentName", "Ignored")
+                                .param("studentId", "Ignored")
+                                .param("title", "New Thesis")
+                                .param("department", "Computer Engineering")
+                                .param("guideName", "Guide")
+                                .param("abstractText", "Abstract")
+                                .with(csrf()))
+                                .andExpect(status().isOk())
+                                .andExpect(view().name("submission-success"));
+
+                ThesisSubmission saved = thesisRepository.findByStudentIdOrderBySubmittedAtDesc("S001")
+                                .get(0);
+                Files.deleteIfExists(Paths.get("uploads").resolve(saved.getFileName()));
+        }
 
         private ThesisSubmission submission(String studentId, String title) {
                 ThesisSubmission submission = new ThesisSubmission();

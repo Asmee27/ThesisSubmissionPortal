@@ -33,7 +33,7 @@ import com.thesisportal.repository.UserRepository;
 @Controller
 public class ThesisController {
 
-    private static final String UPLOAD_DIR = "uploads";
+    private static final Path UPLOAD_ROOT = Paths.get("uploads").toAbsolutePath().normalize();
     private final ThesisRepository thesisRepository;
     private final UserRepository userRepository;
 
@@ -65,7 +65,9 @@ public class ThesisController {
     public String studentDashboard(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName()).orElseThrow();
-        String studentId = user.getStudentId();
+        String studentId = user.getStudentId() == null || user.getStudentId().isBlank()
+                ? user.getUsername()
+                : user.getStudentId().trim();
 
         model.addAttribute(
                 "submissions",
@@ -89,9 +91,13 @@ public class ThesisController {
         }
 
         try {
-            Path uploadRoot = Paths.get(UPLOAD_DIR).toAbsolutePath().normalize();
-            Path documentPath = uploadRoot.resolve(submissionOpt.get().getFileName()).normalize();
-            if (!documentPath.startsWith(uploadRoot) || !Files.isRegularFile(documentPath)) {
+            String storedFileName = submissionOpt.get().getFileName();
+            if (storedFileName == null || storedFileName.isBlank()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            Path documentPath = UPLOAD_ROOT.resolve(storedFileName).normalize();
+            if (!documentPath.startsWith(UPLOAD_ROOT) || !Files.isRegularFile(documentPath)) {
                 return ResponseEntity.notFound().build();
             }
 
@@ -143,8 +149,12 @@ public class ThesisController {
 
         try {
             User user = userRepository.findByUsername(authentication.getName()).orElseThrow();
-            studentName = user.getFullName();
-            studentId = user.getStudentId();
+            studentName = user.getFullName() == null || user.getFullName().isBlank()
+                    ? authentication.getName()
+                    : user.getFullName().trim();
+            studentId = user.getStudentId() == null || user.getStudentId().isBlank()
+                    ? authentication.getName()
+                    : user.getStudentId().trim();
 
             // Basic validation
             if (studentName.isBlank()
@@ -177,7 +187,10 @@ public class ThesisController {
 
             if (originalFileName == null
                 || !originalFileName.toLowerCase().endsWith(".pdf")
-                || !"application/pdf".equalsIgnoreCase(thesisFile.getContentType())) {
+                || (thesisFile.getContentType() != null
+                    && !thesisFile.getContentType().isBlank()
+                    && !"application/pdf".equalsIgnoreCase(thesisFile.getContentType())
+                    && !"application/octet-stream".equalsIgnoreCase(thesisFile.getContentType()))) {
 
             model.addAttribute(
                     "error",
@@ -201,16 +214,13 @@ public class ThesisController {
             }
 
             // Create upload directory
-            Path uploadPath = Paths.get(UPLOAD_DIR);
-
-            Files.createDirectories(uploadPath);
+            Files.createDirectories(UPLOAD_ROOT);
 
             // Generate unique stored filename
-            String storedFileName =
-                    UUID.randomUUID() + "_" + originalFileName;
+            String safeOriginalFileName = Paths.get(originalFileName).getFileName().toString();
+            String storedFileName = UUID.randomUUID() + "_" + safeOriginalFileName;
 
-            Path destination =
-                    uploadPath.resolve(storedFileName);
+            Path destination = UPLOAD_ROOT.resolve(storedFileName).normalize();
 
             Files.copy(
                     thesisFile.getInputStream(),

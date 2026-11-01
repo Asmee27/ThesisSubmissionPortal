@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     tools {
-        // Keep the same name you already have in your Jenkinsfile / Manage Jenkins → Tools
-                maven 'Maven 3.10.0'
+        maven 'Maven 3.10.0'
     }
 
     stages {
@@ -46,21 +45,30 @@ pipeline {
                     '''
 
                     powershell '''
-                        docker login -u $env:DOCKER_USERNAME -p $env:DOCKER_TOKEN
-                        if ($LASTEXITCODE -ne 0) {
-                            throw "Docker login failed."
+                        $ok = $false
+                        for ($i = 1; $i -le 5; $i++) {
+                            Write-Host "Docker login attempt $i..."
+                            docker login -u $env:DOCKER_USERNAME -p $env:DOCKER_TOKEN
+                            if ($LASTEXITCODE -eq 0) { $ok = $true; break }
+                            Start-Sleep -Seconds 15
+                        }
+                        if (-not $ok) {
+                            throw "Docker login failed after 5 attempts."
                         }
                     '''
 
-
                     powershell '''
                         $image = "goldy12/thesisflow:build-$env:BUILD_NUMBER"
-
-                        docker push $image
-                        if ($LASTEXITCODE -ne 0) {
-                            throw "Docker Hub push failed."
+                        $ok = $false
+                        for ($i = 1; $i -le 5; $i++) {
+                            Write-Host "Docker push attempt $i..."
+                            docker push $image
+                            if ($LASTEXITCODE -eq 0) { $ok = $true; break }
+                            Start-Sleep -Seconds 15
                         }
-
+                        if (-not $ok) {
+                            throw "Docker Hub push failed after 5 attempts."
+                        }
                         Write-Host "Successfully pushed $image"
                     '''
                 }

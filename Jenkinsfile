@@ -45,9 +45,9 @@ pipeline {
                         }
                     '''
 
-                    bat '''
-                        @echo off
-                        echo %DOCKER_TOKEN% | docker login -u %DOCKER_USERNAME% --password-stdin
+                    powershell '''
+                        $env:DOCKER_TOKEN | docker login -u $env:DOCKER_USERNAME --password-stdin
+                        if ($LASTEXITCODE -ne 0) { throw "Docker login failed." }
                     '''
 
                     powershell '''
